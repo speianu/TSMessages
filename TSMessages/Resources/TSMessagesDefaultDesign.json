@@ -66,7 +66,7 @@
         "buttonTitleShadowColor": "#812929",
         "buttonTitleShadowOffsetX": 0,
         "buttonTitleShadowOffsetY": 0,
-        "contentFontSize": 14,
+        "contentFontSize": 12,
         "contentTextColor": "#cc0606",
         "contentFontName":"HelveticaNeue",
         "imageName": "NotificationBackgroundErrorIcon.png",
@@ -74,7 +74,7 @@
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
         "textColor": "#cc0606",
-        "titleFontSize": 14,
+        "titleFontSize": 12,
         "titleFontName": "HelveticaNeue",
         "backgroundColor": "#fefefc"
     }
