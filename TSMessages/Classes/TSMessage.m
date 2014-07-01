@@ -422,7 +422,7 @@ __weak static UIViewController *_defaultViewController;
         // Decide wheter to use iOS 7 style or not based on the running device and the base sdk
         BOOL iOS7SDK = NO;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-        iOS7SDK = YES;
+        iOS7SDK = NO;
 #endif
         
         _useiOS7Style = ! (TS_SYSTEM_VERSION_LESS_THAN(@"7.0") || !iOS7SDK);

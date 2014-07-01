@@ -59,21 +59,23 @@
     },
     "error": {
         "backgroundImageName": "NotificationBackgroundError.png",
-        "borderColor": "#700000",
-        "borderHeight": 1,
+        "borderColor": "#f53f42",
+        "borderHeight": 3,
         "buttonBackgroundImageName": "NotificationButtonBackground.png",
         "buttonTitleTextColor": "#FFFFFF",
         "buttonTitleShadowColor": "#812929",
         "buttonTitleShadowOffsetX": 0,
-        "buttonTitleShadowOffsetY": -1,
-        "contentFontSize": 12,
-        "contentTextColor": "#FFFFFF",
+        "buttonTitleShadowOffsetY": 0,
+        "contentFontSize": 14,
+        "contentTextColor": "#cc0606",
+        "contentFontName":"HelveticaNeue",
         "imageName": "NotificationBackgroundErrorIcon.png",
         "shadowColor": "#812929",
         "shadowOffsetX": 0,
-        "shadowOffsetY": -1,
-        "textColor": "#FFFFFF",
+        "shadowOffsetY": 0,
+        "textColor": "#cc0606",
         "titleFontSize": 14,
-        "backgroundColor": "#DD3B41"
+        "titleFontName": "HelveticaNeue-Bold",
+        "backgroundColor": "#fefefc"
     }
 }
