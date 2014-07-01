@@ -8,7 +8,6 @@
 
 #import "TSMessageView.h"
 #import "HexColor.h"
-#import "TSBlurView.h"
 #import "TSMessage.h"
 
 
@@ -45,7 +44,6 @@ static NSMutableDictionary *_notificationDesign;
 @property (nonatomic, strong) UIButton *button;
 @property (nonatomic, strong) UIView *borderView;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
-@property (nonatomic, strong) TSBlurView *backgroundBlurView; // Only used in iOS 7
 
 @property (nonatomic, assign) CGFloat textSpaceLeft;
 @property (nonatomic, assign) CGFloat textSpaceRight;
@@ -148,24 +146,10 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             image = [UIImage imageNamed:[current valueForKey:@"imageName"]];
         }
         
-        if (![TSMessage iOS7StyleEnabled])
-        {
-            self.alpha = 0.0;
-            
-            // add background image here
-            UIImage *backgroundImage = [[UIImage imageNamed:[current valueForKey:@"backgroundImageName"]] stretchableImageWithLeftCapWidth:0.0 topCapHeight:0.0];
-            _backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-            self.backgroundImageView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-            [self addSubview:self.backgroundImageView];
-        }
-        else
-        {
-            // On iOS 7 and above use a blur layer instead (not yet finished)
-            _backgroundBlurView = [[TSBlurView alloc] init];
-            self.backgroundBlurView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-            self.backgroundBlurView.blurTintColor = [UIColor colorWithHexString:current[@"backgroundColor"]];
-            [self addSubview:self.backgroundBlurView];
-        }
+        UIImage *backgroundImage = [[UIImage imageNamed:[current valueForKey:@"backgroundImageName"]] stretchableImageWithLeftCapWidth:0.0 topCapHeight:0.0];
+        _backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+        self.backgroundImageView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
+        [self addSubview:self.backgroundImageView];
         
         UIColor *fontColor = [UIColor colorWithHexString:[current valueForKey:@"textColor"]
                                                    alpha:1.0];
@@ -281,17 +265,14 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         }
         
         // Add a border on the bottom (or on the top, depending on the view's postion)
-        if (![TSMessage iOS7StyleEnabled])
-        {
-            _borderView = [[UIView alloc] initWithFrame:CGRectMake(0.0,
-                                                                   0.0, // will be set later
-                                                                   screenWidth,
-                                                                   [[current valueForKey:@"borderHeight"] floatValue])];
-            self.borderView.backgroundColor = [UIColor colorWithHexString:[current valueForKey:@"borderColor"]
-                                                                    alpha:1.0];
-            self.borderView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-            [self addSubview:self.borderView];
-        }
+        _borderView = [[UIView alloc] initWithFrame:CGRectMake(0.0,
+                                                               0.0, // will be set later
+                                                               screenWidth,
+                                                               [[current valueForKey:@"borderHeight"] floatValue])];
+        self.borderView.backgroundColor = [UIColor colorWithHexString:[current valueForKey:@"borderColor"]
+                                                                alpha:1.0];
+        self.borderView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
+        [self addSubview:self.borderView];
         
         
         CGFloat actualHeight = [self updateHeightOfMessageView]; // this call also takes care of positioning the labels
@@ -439,7 +420,6 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
     }
     
     self.backgroundImageView.frame = backgroundFrame;
-    self.backgroundBlurView.frame = backgroundFrame;
     
     return currentHeight;
 }
