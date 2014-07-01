@@ -333,7 +333,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
     if ([self.subtitle length])
     {
         self.contentLabel.frame = CGRectMake(self.textSpaceLeft,
-                                             self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 5.0,
+                                             self.title.length ?  self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 5.0 : TSMessageViewPadding,
                                              screenWidth - TSMessageViewPadding - self.textSpaceLeft - self.textSpaceRight,
                                              0.0);
         [self.contentLabel sizeToFit];
@@ -351,7 +351,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
     if (self.iconImageView)
     {
         // Check if that makes the popup larger (height)
-        if (self.iconImageView.frame.origin.y + self.iconImageView.frame.size.height + TSMessageViewPadding > currentHeight)
+        if (self.iconImageView.frame.origin.y + self.iconImageView.frame.size.height  > currentHeight)
         {
             currentHeight = self.iconImageView.frame.origin.y + self.iconImageView.frame.size.height;
         }
@@ -395,28 +395,26 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
                                         currentHeight);
     
     // increase frame of background view because of the spring animation
-    if ([TSMessage iOS7StyleEnabled])
+    if (self.messagePosition == TSMessageNotificationPositionTop)
     {
-        if (self.messagePosition == TSMessageNotificationPositionTop)
-        {
-            float topOffset = 0.f;
-            
-            UINavigationController *navigationController = self.viewController.navigationController;
-            if (!navigationController && [self.viewController isKindOfClass:[UINavigationController class]]) {
-                navigationController = (UINavigationController *)self.viewController;
-            }
-            BOOL isNavBarIsHidden = !navigationController || [TSMessage isNavigationBarInNavigationControllerHidden:navigationController];
-            BOOL isNavBarIsOpaque = !navigationController.navigationBar.isTranslucent && navigationController.navigationBar.alpha == 1;
-            
-            if (isNavBarIsHidden || isNavBarIsOpaque) {
-                topOffset = -30.f;
-            }
-            backgroundFrame = UIEdgeInsetsInsetRect(backgroundFrame, UIEdgeInsetsMake(topOffset, 0.f, 0.f, 0.f));
+        float topOffset = 0.f;
+        
+        UINavigationController *navigationController = self.viewController.navigationController;
+        if (!navigationController && [self.viewController isKindOfClass:[UINavigationController class]]) {
+            navigationController = (UINavigationController *)self.viewController;
         }
-        else if (self.messagePosition == TSMessageNotificationPositionBottom)
-        {
-            backgroundFrame = UIEdgeInsetsInsetRect(backgroundFrame, UIEdgeInsetsMake(0.f, 0.f, -30.f, 0.f));
+        BOOL isNavBarIsHidden = !navigationController || [TSMessage isNavigationBarInNavigationControllerHidden:navigationController];
+        BOOL isNavBarIsOpaque = !navigationController.navigationBar.isTranslucent && navigationController.navigationBar.alpha == 1;
+        
+        if (isNavBarIsHidden || isNavBarIsOpaque) {
+            topOffset = 20.f;
         }
+        backgroundFrame.origin.y -= ABS(topOffset / 2);
+        backgroundFrame.size.height += ABS(topOffset);
+    }
+    else if (self.messagePosition == TSMessageNotificationPositionBottom)
+    {
+        backgroundFrame = UIEdgeInsetsInsetRect(backgroundFrame, UIEdgeInsetsMake(0.f, 0.f, -30.f, 0.f));
     }
     
     self.backgroundImageView.frame = backgroundFrame;
