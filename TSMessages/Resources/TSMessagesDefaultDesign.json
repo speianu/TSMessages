@@ -75,7 +75,7 @@
         "shadowOffsetY": 0,
         "textColor": "#cc0606",
         "titleFontSize": 14,
-        "titleFontName": "HelveticaNeue-Bold",
+        "titleFontName": "HelveticaNeue",
         "backgroundColor": "#fefefc"
     }
 }
