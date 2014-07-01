@@ -224,10 +224,10 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         if (image)
         {
             _iconImageView = [[UIImageView alloc] initWithImage:image];
-            self.iconImageView.frame = CGRectMake(TSMessageViewPadding * 2,
-                                                  TSMessageViewPadding,
-                                                  image.size.width,
-                                                  image.size.height);
+            self.iconImageView.frame = CGRectIntegral(CGRectMake(TSMessageViewPadding * 2,
+                                                                 TSMessageViewPadding,
+                                                                 image.size.width,
+                                                                 image.size.height));
             [self addSubview:self.iconImageView];
         }
         
